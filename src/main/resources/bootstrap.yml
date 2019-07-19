@@ -1,0 +1,22 @@
+server:
+  port: 22222
+
+spring:
+  application:
+    name: bugs-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: home-page
+          uri: http://www.baidu.com/
+          predicates:
+            - Path=/
+          filters:
+            - RedirectTo=303, /front/index.html
+        - id: front
+          uri: http://www.baidu.com/
+          predicates:
+            - Path=/front/**
+          filters:
+            - StripPrefix=1
